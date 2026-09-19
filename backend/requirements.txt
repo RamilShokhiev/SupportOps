@@ -1,0 +1,16 @@
+-c requirements.lock
+alembic==1.20.0
+fastapi==0.141.1
+httpx==0.28.1
+langfuse==4.15.2
+langgraph==1.2.11
+langgraph-checkpoint-postgres==3.1.2
+langgraph-checkpoint-sqlite==3.1.1
+pgvector==0.5.0
+psycopg[binary,pool]==3.3.5
+pydantic==2.13.5
+pydantic-settings==2.15.0
+pypdf==6.18.1
+python-multipart==0.0.32
+SQLAlchemy==2.0.52
+uvicorn==0.52.4

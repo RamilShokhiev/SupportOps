@@ -1,0 +1,17 @@
+.env
+.venv/
+**/.triage-venv/
+**/__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.db
+*.db-*
+*.log
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+.local/
+.coverage
+htmlcov/

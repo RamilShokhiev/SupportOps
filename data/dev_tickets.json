@@ -1,0 +1,848 @@
+[
+  {
+    "id": "dev-initial-three-store-upgrade-1",
+    "group_id": "dev:initial-three-store-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "After upgrading RetailBridge to 3.8, checkout in 3 stores cannot complete payment: E-214.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v38"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-initial-three-store-upgrade-2",
+    "group_id": "dev:initial-three-store-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.8 reports E-214 on payment at 3 stores immediately after the upgrade.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v38"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-initial-three-store-upgrade-3",
+    "group_id": "dev:initial-three-store-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Payment is blocked at 3 stores since the RetailBridge 3.8 upgrade; tills show E-214.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v38"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-legacy-single-cache-1",
+    "group_id": "dev:legacy-single-cache",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.7 checkout at 1 store displays E-214 after an overnight idle period.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v37"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-legacy-single-cache-2",
+    "group_id": "dev:legacy-single-cache",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "A till left idle overnight in 1 store cannot pay, E-214, RetailBridge version 3.7.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v37"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-legacy-single-cache-3",
+    "group_id": "dev:legacy-single-cache",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "At 1 store RetailBridge 3.7 returns E-214 on the first payment after overnight idle.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "checkout-e214-v37"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-first-sku-conflict-1",
+    "group_id": "dev:first-sku-conflict",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.8 inventory sync fails with E-409 on the first new SKU today.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-first-sku-conflict-2",
+    "group_id": "dev:first-sku-conflict",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "The first SKU added today cannot sync in RetailBridge 3.8; E-409 appears.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-first-sku-conflict-3",
+    "group_id": "dev:first-sku-conflict",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "New SKU inventory synchronization returns E-409 in RetailBridge 3.8 for the first time.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-scheduled-token-expiry-1",
+    "group_id": "dev:scheduled-token-expiry",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.8 connector returns E-401 when today's scheduled token expiry is reached.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "connector-e401"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-scheduled-token-expiry-2",
+    "group_id": "dev:scheduled-token-expiry",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Our connector token expired on schedule and RetailBridge 3.8 shows E-401.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "connector-e401"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-scheduled-token-expiry-3",
+    "group_id": "dev:scheduled-token-expiry",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "E-401 starts exactly at the scheduled token expiration in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "connector-e401"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-paused-first-receipt-1",
+    "group_id": "dev:paused-first-receipt",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.8 shows P-102 for the first receipt after the printer was paused.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "receipt-p102"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-paused-first-receipt-2",
+    "group_id": "dev:paused-first-receipt",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "The printer was paused; now RetailBridge 3.8 cannot print its first receipt, P-102.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "receipt-p102"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-paused-first-receipt-3",
+    "group_id": "dev:paused-first-receipt",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "First receipt after a printer pause gives P-102 in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "receipt-p102"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-initial-report-capacity-1",
+    "group_id": "dev:initial-report-capacity",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "RetailBridge 3.8 daily totals report fails with R-503 at the morning peak.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "reporting-r503"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-initial-report-capacity-2",
+    "group_id": "dev:initial-report-capacity",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "At today's morning peak our daily totals report in RetailBridge 3.8 returns R-503.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "reporting-r503"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-initial-report-capacity-3",
+    "group_id": "dev:initial-report-capacity",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Daily totals cannot be generated during the morning peak; RetailBridge 3.8 R-503.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "reporting-r503"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-cashier-onboarding-1",
+    "group_id": "dev:cashier-onboarding",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Please grant a newly hired cashier the cashier role for 1 store in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "access-roles"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "access-roles"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-cashier-onboarding-2",
+    "group_id": "dev:cashier-onboarding",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "We request cashier access in RetailBridge 3.8 for a new employee at 1 store.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "access-roles"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "access-roles"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-cashier-onboarding-3",
+    "group_id": "dev:cashier-onboarding",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "How can a new cashier receive the cashier role at 1 store on RetailBridge 3.8?",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "access-roles"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "access-roles"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-northstar-yesterday-export-1",
+    "group_id": "dev:northstar-yesterday-export",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Northstar requests a CSV export of yesterday's transactions from RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "data-export"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "data-export"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-northstar-yesterday-export-2",
+    "group_id": "dev:northstar-yesterday-export",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Please explain how Northstar can export yesterday's RetailBridge 3.8 transactions to CSV.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "data-export"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "data-export"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-northstar-yesterday-export-3",
+    "group_id": "dev:northstar-yesterday-export",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "We need a Northstar transaction CSV for yesterday in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Request",
+      "next_step": "answer",
+      "source_keys": [
+        "data-export"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "data-export"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-recurring-noon-stock-1",
+    "group_id": "dev:recurring-noon-stock",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Investigate the recurring E-409 inventory sync failure every noon in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-recurring-noon-stock-2",
+    "group_id": "dev:recurring-noon-stock",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Every noon RetailBridge 3.8 inventory sync fails again with E-409; investigate root cause.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-recurring-noon-stock-3",
+    "group_id": "dev:recurring-noon-stock",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Repeated E-409 at noon is a recurring stock sync problem in RetailBridge 3.8.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "inventory-e409"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-planned-lab-upgrade-1",
+    "group_id": "dev:planned-lab-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Plan a RetailBridge 3.9 upgrade in the training lab next Monday.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-planned-lab-upgrade-2",
+    "group_id": "dev:planned-lab-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "We request a planned upgrade to RetailBridge 3.9 for the training lab on Monday.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  },
+  {
+    "id": "dev-planned-lab-upgrade-3",
+    "group_id": "dev:planned-lab-upgrade",
+    "split": "dev",
+    "language": "en",
+    "organization": "northstar",
+    "text": "Schedule the training lab migration to RetailBridge 3.9 next Monday.",
+    "diagnostic_mode": "normal",
+    "expected": {
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "allowed_tools": [
+        "get_service_status",
+        "get_recent_changes"
+      ],
+      "allowed_fact_origins": [
+        "get_service_status",
+        "get_recent_changes",
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "requires_no_success_facts_on_api_failure": false,
+      "allowed_write_actions_before_review": []
+    },
+    "synthetic": true
+  }
+]

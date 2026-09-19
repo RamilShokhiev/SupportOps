@@ -1,0 +1,112 @@
+[
+  {
+    "document_key": "checkout-e214-v38",
+    "title": "E-214: checkout authorization contract mismatch (3.8)",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.8",
+    "max_version": "3.8",
+    "filename": "checkout-e214-v38.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "checkout-e214-v37",
+    "title": "E-214: expired local authorization cache (3.7 only)",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.7",
+    "filename": "checkout-e214-v37.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "inventory-e409",
+    "title": "E-409: inventory revision conflict",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "inventory-e409.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "connector-e401",
+    "title": "E-401: connector token expired",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "connector-e401.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "receipt-p102",
+    "title": "P-102: receipt spooler paused",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "receipt-p102.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "reporting-r503",
+    "title": "R-503: reporting worker capacity",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "reporting-r503.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "access-roles",
+    "title": "Request: store roles and least privilege",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "access-roles.md",
+    "conflict_group": null,
+    "organization": "both"
+  },
+  {
+    "document_key": "data-export",
+    "title": "Request: Northstar transaction export",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.7",
+    "max_version": "3.9",
+    "filename": "data-export.md",
+    "conflict_group": null,
+    "organization": "northstar"
+  },
+  {
+    "document_key": "upgrade-v39-a",
+    "title": "3.9 upgrade checklist A — unresolved policy conflict",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.9",
+    "max_version": "3.9",
+    "filename": "upgrade-v39-a.md",
+    "conflict_group": "upgrade-v39",
+    "organization": "both"
+  },
+  {
+    "document_key": "upgrade-v39-b",
+    "title": "3.9 upgrade checklist B — unresolved policy conflict",
+    "version": 1,
+    "product": "RetailBridge",
+    "min_version": "3.9",
+    "max_version": "3.9",
+    "filename": "upgrade-v39-b.md",
+    "conflict_group": "upgrade-v39",
+    "organization": "both"
+  }
+]

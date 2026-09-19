@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+!.env.example
+.venv
+**/.triage-venv
+.local
+.pytest_cache
+**/__pycache__
+**/*.pyc
+**/*.db
+**/*.db-*
+**/node_modules
+frontend/dist
+frontend/test-results
+frontend/playwright-report
+*.log

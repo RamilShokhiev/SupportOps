@@ -1,0 +1,17 @@
+[
+  {
+    "subject": "Synthetic RetailBridge checkout report",
+    "text": "After upgrading RetailBridge to 3.8, checkout in 3 stores cannot complete payment: E-214.",
+    "language": "en"
+  },
+  {
+    "subject": "Synthetic RetailBridge checkout report",
+    "text": "RetailBridge 3.8 reports E-214 on payment at 3 stores immediately after the upgrade.",
+    "language": "en"
+  },
+  {
+    "subject": "Synthetic RetailBridge checkout report",
+    "text": "Payment is blocked at 3 stores since the RetailBridge 3.8 upgrade; tills show E-214.",
+    "language": "en"
+  }
+]

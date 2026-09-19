@@ -1,0 +1,76 @@
+name: supportops
+
+x-app: &app
+  build: .
+  image: supportops:local
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    POSTGRES_HOST: db
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supportops-local}
+    POSTGRES_USER: supportops
+    POSTGRES_DB: supportops
+    POSTGRES_PORT: 5432
+    RETAILBRIDGE_URL: http://retailbridge:8001
+  init: true
+
+services:
+  db:
+    image: pgvector/pgvector:0.8.2-pg17
+    environment:
+      POSTGRES_DB: supportops
+      POSTGRES_USER: supportops
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supportops-local}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supportops -d supportops"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    <<: *app
+    command: ["python", "-m", "backend.app.bootstrap"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  retailbridge:
+    <<: *app
+    command: ["python", "-m", "uvicorn", "retailbridge.main:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "127.0.0.1:8001:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    <<: *app
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      retailbridge:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  worker:
+    <<: *app
+    command: ["python", "-m", "backend.app.worker"]
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

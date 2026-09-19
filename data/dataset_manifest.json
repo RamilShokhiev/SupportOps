@@ -1,0 +1,28 @@
+{
+  "dataset_version": "synthetic-v1",
+  "authored_date": "2026-09-13",
+  "counts": {
+    "development": 30,
+    "test": {
+      "en": 50,
+      "ru": 50,
+      "tr": 50
+    }
+  },
+  "dev_semantic_groups": 10,
+  "test_semantic_groups": 50,
+  "sha256": {
+    "data/dev_tickets.json": "eca3c24bcc2d664e5e80c0a31e6499049920db3e037140ebb5175fc5ebfbf7ee",
+    "data/test_tickets.json": "01da5457aff0b6198c226226a8b063fd803a5435e5459bc2dabaab6f268fd60b"
+  },
+  "label_policy": "Answer supported guidance; clarify absent product/version/source, conflicts, or unsuccessful diagnostic reads; escalate E-214 3.8 only with successful degraded checkout evidence. Escalate documented recurring Problems for engineering investigation (agreed before first evaluation).",
+  "freeze_policy": "Labels and inputs authored before first evaluation. Do not optimize the engine or labels against test errors. Make engine improvements against dev and create a fresh held-out set for subsequent quality claims.",
+  "limitations": [
+    "All content is hand-authored synthetic material, not real customer data.",
+    "Translations and close development paraphrases share a group and split.",
+    "Scenario IDs and exact text are mechanically disjoint; semantic separation was manually authored and is not independently certified.",
+    "Shared product/error vocabulary is intentional; this is a small closed-domain regression set.",
+    "50 test translation groups are correlated, not 150 independent real cases.",
+    "Translations have no native-speaker or human adjudication review; scores do not establish production language quality."
+  ]
+}
