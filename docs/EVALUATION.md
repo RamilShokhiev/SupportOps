@@ -41,7 +41,7 @@ Latency measures synchronous analysis only, excluding startup, document indexing
 
 Configuration: `{"diagnostics": "production read adapter with in-memory HTTP fixtures", "embedding_dimensions": 256, "embedding_model": "feature-hash-glossary", "embedding_provider": "demo", "live_total_cost": "zero external model API cost", "llm_model": "deterministic-demo", "llm_provider": "demo", "mode": "demo", "python": "3.13.15", "retrieval": "lexical plus cosine reciprocal-rank fusion; no reranker"}`.
 
-Frozen test/input hashes are recorded in `data/dataset_manifest.json`; this run used `01da5457aff0b6198c226226a8b063fd803a5435e5459bc2dabaab6f268fd60b`. Complete predictions and failures are in `data/evaluation/test_demo.json` and `data/evaluation/test_demo_failures.json`.
+Frozen test/input hashes are recorded in `data/dataset_manifest.json`; this run used `01da5457aff0b6198c226226a8b063fd803a5435e5459bc2dabaab6f268fd60b`. Full per-ticket JSON is generated locally by `scripts/evaluate.py` and is not stored in git.
 
 The 150 test rows are 50 translation groups, not 150 independent real tickets. Development has 10 other scenario groups with three English paraphrases each. Exact text and group IDs are mechanically disjoint; semantic boundaries were manually authored and not independently certified. Shared vocabulary and hand-written translated templates make this a closed-domain regression exercise. No native-speaker review, random customer sampling, bootstrap intervals or human adjudication was performed. Test failures are retained; do not change this frozen set or tune on its outcomes. Future improvements require development examples and a fresh held-out set for quality claims.
 

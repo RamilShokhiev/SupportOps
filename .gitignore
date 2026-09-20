@@ -1,5 +1,6 @@
 .env
 .venv/
+.cursor/
 **/.triage-venv/
 **/__pycache__/
 .pytest_cache/
@@ -15,3 +16,4 @@ frontend/playwright-report/
 .local/
 .coverage
 htmlcov/
+data/evaluation/*.json

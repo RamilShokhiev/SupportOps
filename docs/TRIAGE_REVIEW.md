@@ -41,7 +41,7 @@ The demo classifier uses manually authored RetailBridge rules. Its larger score 
 | Problem | 2 | 0 | 4 | 0 | 0.3478 |
 | Change | 1 | 1 | 2 | 1 | 0.1429 |
 
-All 50 predictions, raw class scores, timings, expected labels, and model hash are in [triage_test.json](../data/evaluation/triage_test.json). The 30 errors are retained in [triage_test_failures.json](../data/evaluation/triage_test_failures.json). The corresponding SupportOps results are in [EVALUATION.md](EVALUATION.md) and [test_demo.json](../data/evaluation/test_demo.json).
+The corresponding SupportOps results are in [EVALUATION.md](EVALUATION.md). Full per-ticket JSON (`data/evaluation/triage_test.json`) is produced by `scripts/evaluate.py --triage-only` and is not stored in git.
 
 ## Reproduce
 
