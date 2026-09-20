@@ -19,7 +19,7 @@ from sqlalchemy.exc import IntegrityError
 from .config import Settings, settings
 from .database import make_engine, make_session_factory
 from .models import Approval, AuditEvent, AuthSession, Base, DemoIssue, DocumentVersion, Execution, Organization, ProposedAction, Ticket, User, utcnow
-from .schemas import ActionEdit, ActionVersion, Clarification, Login, Review, TicketCreate, TicketImport
+from .schemas import ActionDecision, ActionEdit, ActionVersion, AnalyzeRequest, Clarification, Login, Review, TicketCreate, TicketImport
 from .security import action_hash, check_password, token_hash
 from .seed import seed_demo
 from .services import analyze_ticket, audit, complete_review, document_dict, execute_action, get_action, get_ticket, iso, latest_run, reconcile, ticket_dict
@@ -45,8 +45,9 @@ def create_app(config: Settings | None = None, initialize=False):
             seed_demo(db, config)
         if config.embedding_provider == 'demo':
             index_pending(factory, config, limit=100)
-        with persistent_graph(config) as graph:
+        with persistent_graph(config) as graph, persistent_graph(config, 'multi_agent_review') as review_graph:
             application.state.graph = graph
+            application.state.review_graph = review_graph
             yield
         engine.dispose()
 
@@ -106,7 +107,7 @@ def create_app(config: Settings | None = None, initialize=False):
     @application.get('/api/health')
     def health(db=Depends(session)):
         db.execute(text('SELECT 1'))
-        return {'status': 'ok', 'mode': config.mode, 'llm_provider': config.llm_provider, 'embedding_provider': config.embedding_provider, 'issue_provider': config.issue_provider, 'database': engine.dialect.name, 'synthetic_diagnostics': True}
+        return {'status': 'ok', 'mode': config.mode, 'llm_provider': config.llm_provider, 'embedding_provider': config.embedding_provider, 'issue_provider': config.issue_provider, 'database': engine.dialect.name, 'synthetic_diagnostics': True, 'default_workflow_mode': config.default_workflow_mode, 'supported_workflow_modes': ['standard', 'multi_agent_review']}
 
     @application.post('/api/auth/login')
     def login(body: Login, request: Request, response: Response, db=Depends(session)):
@@ -170,8 +171,9 @@ def create_app(config: Settings | None = None, initialize=False):
         return ticket_dict(db, get_ticket(db, ticket_id, user))
 
     @application.post('/api/tickets/{ticket_id}/analyze')
-    def analyze_api(ticket_id: str, user=Depends(writer), db=Depends(session)):
-        return analyze_ticket(db, get_ticket(db, ticket_id, user), user, application)
+    def analyze_api(ticket_id: str, body: AnalyzeRequest | None = None, user=Depends(writer), db=Depends(session)):
+        return analyze_ticket(db, get_ticket(db, ticket_id, user), user, application,
+                              workflow_mode=body.workflow_mode if body else None)
 
     @application.post('/api/tickets/{ticket_id}/resume')
     def resume_api(ticket_id: str, user=Depends(writer), db=Depends(session)):
@@ -184,7 +186,7 @@ def create_app(config: Settings | None = None, initialize=False):
             raise HTTPException(409, 'Ticket is not awaiting clarification')
         if len(ticket.text) + len(body.text) > 16000:
             raise HTTPException(422, 'Combined message exceeds the input limit')
-        complete_review(db, ticket, user, application.state.graph, 'clarified')
+        complete_review(db, ticket, user, application, 'clarified')
         ticket.text += '\n\nAdditional information: ' + body.text
         ticket.status = 'new'
         audit(db, ticket, user, 'clarification_added')
@@ -196,7 +198,7 @@ def create_app(config: Settings | None = None, initialize=False):
         ticket = get_ticket(db, ticket_id, user)
         if ticket.status not in {'ready', 'awaiting_clarification'}:
             raise HTTPException(409, 'Review this ticket through its proposed action')
-        complete_review(db, ticket, user, application.state.graph, body.decision)
+        complete_review(db, ticket, user, application, body.decision, body.reason)
         if body.decision == 'rejected':
             ticket.status = 'awaiting_clarification'
         audit(db, ticket, user, 'draft_' + body.decision)
@@ -231,7 +233,7 @@ def create_app(config: Settings | None = None, initialize=False):
         return ticket_dict(db, ticket)
 
     @application.post('/api/actions/{action_id}/approve')
-    def approve_api(action_id: str, body: ActionVersion, user=Depends(writer), db=Depends(session)):
+    def approve_api(action_id: str, body: ActionDecision, user=Depends(writer), db=Depends(session)):
         action = get_action(db, action_id, user)
         ticket = get_ticket(db, action.ticket_id, user)
         if action.version != body.version or action.status not in {'pending', 'approved'}:
@@ -242,13 +244,13 @@ def create_app(config: Settings | None = None, initialize=False):
         if updated.rowcount != 1:
             raise HTTPException(409, 'Action was changed concurrently')
         db.add(Approval(action_id=action.id, user_id=user.id, version=action.version, content_hash=action.content_hash, decision='approved'))
-        complete_review(db, ticket, user, application.state.graph, 'action_approved')
+        complete_review(db, ticket, user, application, 'action_approved', body.reason)
         audit(db, ticket, user, 'action_approved', {'version': action.version, 'content_hash': action.content_hash})
         db.commit()
         return ticket_dict(db, ticket)
 
     @application.post('/api/actions/{action_id}/reject')
-    def reject_api(action_id: str, body: ActionVersion, user=Depends(writer), db=Depends(session)):
+    def reject_api(action_id: str, body: ActionDecision, user=Depends(writer), db=Depends(session)):
         action = get_action(db, action_id, user)
         ticket = get_ticket(db, action.ticket_id, user)
         if action.version != body.version or action.status not in {'pending', 'approved'}:
@@ -257,7 +259,7 @@ def create_app(config: Settings | None = None, initialize=False):
         action.approved_version = None
         ticket.status = 'awaiting_clarification'
         db.add(Approval(action_id=action.id, user_id=user.id, version=action.version, content_hash=action.content_hash, decision='rejected'))
-        complete_review(db, ticket, user, application.state.graph, 'action_rejected')
+        complete_review(db, ticket, user, application, 'action_rejected', body.reason)
         audit(db, ticket, user, 'action_rejected', {'version': action.version})
         db.commit()
         return ticket_dict(db, ticket)
@@ -345,6 +347,22 @@ def create_app(config: Settings | None = None, initialize=False):
         now = utcnow()
         subjects = {t.id: t.subject for t in tickets}
         data = {'total': len(tickets), 'open': sum(t.status != 'resolved' for t in tickets), 'overdue': sum(t.reviewed_at is None and t.due_at.replace(tzinfo=timezone.utc) < now for t in tickets), 'reviewed': sum(t.reviewed_at is not None for t in tickets), 'executed': sum(e.event_type == 'execution_succeeded' for e in events), 'api_errors': sum(a.get('api_errors', 0) for a in analyzed), 'avg_analysis_ms': round(sum(a.get('elapsed_ms', 0) for a in analyzed) / len(analyzed), 2) if analyzed else 0, 'cost_usd': round(sum(c for c in costs if c is not None), 6), 'cost_complete': all(c is not None for c in costs), 'by_category': count_by('category'), 'by_queue': count_by('queue'), 'by_language': count_by('language'), 'by_status': count_by('status'), 'decisions': dict(Counter(e.event_type for e in events if e.event_type in {'action_approved', 'action_rejected', 'action_edited', 'draft_accepted', 'draft_rejected'})), 'recent_activity': [{'event_type': e.event_type, 'created_at': iso(e.created_at), 'ticket_id': e.ticket_id, 'subject': subjects.get(e.ticket_id, 'Knowledge library')} for e in events[:12]], 'definitions': {'overdue': 'No completed human review by the due time. 24/7 UTC: P1 1h, P2 4h, P3 8h.', 'reviewed': 'Human review recorded; this is not a message sent to the customer.', 'executed': 'Confirmed engineering issue creations; escalation is not resolution.', 'avg_analysis_ms': 'Mean completed workflow time, including diagnostic calls, excluding human review.', 'cost_usd': 'Known analysis provider cost subtotal; excludes indexing and unmetered failed provider calls. Not a complete invoice.', 'cost_complete': 'Whether all completed analysis runs have configured pricing; no guarantee of billed-cost reconciliation.'}}
+        team_events = [e for e in events if e.event_type == 'analysis_completed'
+                       and e.payload.get('workflow_mode') == 'multi_agent_review' and e.payload.get('review_team')]
+        team_runs = [e.payload['review_team'] for e in team_events]
+        by_role = Counter()
+        for run in team_runs:
+            by_role.update(run.get('by_role', {}))
+        data['review_team'] = {
+            'tickets': len({e.ticket_id for e in team_events}), 'runs': len(team_runs),
+            'blocked': sum(run.get('status') == 'needs_review' for run in team_runs),
+            'revised': sum(run.get('revisions', 0) > 0 for run in team_runs),
+            'disagreements': sum(run.get('disagreements', 0) for run in team_runs),
+            'by_role': dict(by_role),
+            'human_decisions': dict(Counter(e.payload.get('decision') for e in events
+                if e.event_type == 'review_completed' and e.payload.get('workflow_mode') == 'multi_agent_review')),
+        }
+        data['definitions']['review_team'] = 'Team runs count completed analyses, including re-analysis after clarification. Findings and revisions are observations, not evidence of improved accuracy. Human decisions and feedback remain separate.'
         return tickets, data
 
     @application.get('/api/dashboard')
@@ -356,14 +374,15 @@ def create_app(config: Settings | None = None, initialize=False):
         tickets, _ = report_data(user, db)
         output = io.StringIO(newline='')
         writer_csv = csv.writer(output)
-        writer_csv.writerow(['report_generated_at_utc', 'organization', 'ticket_id', 'subject', 'language', 'category', 'queue', 'priority', 'status', 'created_at_utc', 'human_review_due_at_utc', 'human_review_completed_at_utc', 'resolved_at_utc', 'analysis_ms', 'known_analysis_cost_usd', 'sla_definition'])
+        writer_csv.writerow(['report_generated_at_utc', 'organization', 'ticket_id', 'subject', 'language', 'category', 'queue', 'priority', 'status', 'created_at_utc', 'human_review_due_at_utc', 'human_review_completed_at_utc', 'resolved_at_utc', 'analysis_ms', 'known_analysis_cost_usd', 'sla_definition', 'workflow_mode', 'team_review_status', 'team_revisions', 'team_disagreements'])
         def safe(value):
             value = str(value) if value is not None else ''
             return "'" + value if value.startswith(('=', '+', '-', '@', '\t', '\r')) else value
         now = iso(utcnow())
         for t in tickets:
             a = t.analysis or {}
-            writer_csv.writerow([safe(v) for v in [now, user.organization_id, t.id, t.subject, t.language, t.category, t.queue, t.priority, t.status, iso(t.created_at), iso(t.due_at), iso(t.reviewed_at), iso(t.resolved_at), a.get('elapsed_ms'), a.get('cost_usd'), '24/7 UTC; first human review, not customer response; P1=1h P2=4h P3=8h']])
+            team = a.get('review_team') or {}
+            writer_csv.writerow([safe(v) for v in [now, user.organization_id, t.id, t.subject, t.language, t.category, t.queue, t.priority, t.status, iso(t.created_at), iso(t.due_at), iso(t.reviewed_at), iso(t.resolved_at), a.get('elapsed_ms'), a.get('cost_usd'), '24/7 UTC; first human review, not customer response; P1=1h P2=4h P3=8h', a.get('workflow_mode', 'standard') if a else '', team.get('status'), team.get('revisions'), len(team.get('disagreements', [])) if team else None]])
         return Response('\ufeff' + output.getvalue(), media_type='text/csv; charset=utf-8', headers={'Content-Disposition': 'attachment; filename="supportops-report.csv"'})
 
     if config.frontend_dist.is_dir():

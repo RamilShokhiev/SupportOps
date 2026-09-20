@@ -35,6 +35,7 @@ jobs:
       - run: python -m pip check
       - run: python -m pytest -q
       - run: python scripts/evaluate.py --split test
+      - run: python scripts/evaluate_review_team.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -87,6 +88,7 @@ jobs:
           curl --fail http://127.0.0.1:8000/
           curl --fail http://127.0.0.1:8001/health
       - run: python scripts/smoke.py
+      - run: python scripts/smoke.py --workflow-mode multi_agent_review
       - run: docker compose logs --no-color
         if: failure()
       - run: docker compose down

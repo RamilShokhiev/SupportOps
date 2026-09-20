@@ -50,7 +50,7 @@ def test_bootstrap_is_repeatable_and_preserves_seeded_data(tmp_path):
         assert db.scalar(select(func.count()).select_from(User)) == 3
         assert db.scalar(select(func.count()).select_from(DocumentVersion)) == 19
         assert set(db.scalars(select(DocumentVersion.status))) == {'ready'}
-        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar_one() == '0002'
+        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar_one() == '0003'
     bootstrap(config)
     with factory() as db:
         assert set(db.scalars(select(Ticket.id))) == ids
@@ -76,9 +76,39 @@ def test_initial_migration_can_roundtrip_on_empty_database(tmp_path):
     engine.dispose()
 
 
+def test_review_mode_migration_preserves_existing_standard_interrupt(tmp_path):
+    config = demo_config(database_url=f'sqlite:///{(tmp_path / "upgrade.db").as_posix()}',
+                         checkpoint_sqlite_path=str(tmp_path / 'checkpoints.db'))
+    bootstrap(config)
+    login = {'email': 'support@northstar.demo', 'password': config.demo_password}
+    with TestClient(create_app(config)) as client:
+        assert client.post('/api/auth/login', json=login).status_code == 200
+        ticket = client.post('/api/tickets', json={
+            'subject': 'Preserve existing review', 'text': 'Our checkout is blocked. Please help.', 'language': 'en',
+        }).json()
+        analyzed = client.post(f'/api/tickets/{ticket["id"]}/analyze').json()
+        assert analyzed['review_pending'] is True
+    engine = make_engine(config.database_url)
+    migration_config = Config(str(PROJECT_ROOT / 'alembic.ini'))
+    with engine.begin() as connection:
+        migration_config.attributes['connection'] = connection
+        # Reproduce the pre-feature table with an existing standard checkpoint.
+        command.downgrade(migration_config, '0002')
+    bootstrap(config)
+    config.default_workflow_mode = 'multi_agent_review'
+    with TestClient(create_app(config)) as client:
+        assert client.post('/api/auth/login', json=login).status_code == 200
+        restored = client.get(f'/api/tickets/{ticket["id"]}').json()
+        assert restored['workflow_mode'] == 'standard' and restored['analysis'] == analyzed['analysis']
+        reviewed = client.post(f'/api/tickets/{ticket["id"]}/review', json={'decision': 'accepted'})
+        assert reviewed.status_code == 200 and reviewed.json()['review_pending'] is False
+    engine.dispose()
+
+
 @pytest.mark.postgres
 @pytest.mark.skipif(not os.environ.get('SUPPORTOPS_TEST_DATABASE_URL'), reason='Disposable PostgreSQL URL not configured')
-def test_postgres_migrations_vector_storage_and_checkpoint_restart():
+@pytest.mark.parametrize('workflow_mode', ['standard', 'multi_agent_review'])
+def test_postgres_migrations_vector_storage_and_checkpoint_restart(workflow_mode):
     """CI supplies a dedicated database. This test does not drop existing data."""
     config = demo_config(database_url=os.environ['SUPPORTOPS_TEST_DATABASE_URL'])
     bootstrap(config)
@@ -94,14 +124,19 @@ def test_postgres_migrations_vector_storage_and_checkpoint_restart():
     with TestClient(create_app(config)) as client:
         assert client.post('/api/auth/login', json={'email': 'support@northstar.demo', 'password': config.demo_password}).status_code == 200
         ticket = client.post('/api/tickets', json={'subject': 'Postgres checkpoint restart', 'text': 'Our checkout is blocked. Please help.', 'language': 'en'}).json()
-        result = client.post(f'/api/tickets/{ticket["id"]}/analyze')
+        result = client.post(f'/api/tickets/{ticket["id"]}/analyze', json={'workflow_mode': workflow_mode})
         assert result.status_code == 200, result.text
         assert result.json()['status'] == 'awaiting_clarification'
+        assert result.json()['workflow_mode'] == workflow_mode
     with TestClient(create_app(config)) as client:
         client.post('/api/auth/login', json={'email': 'support@northstar.demo', 'password': config.demo_password})
-        result = client.post(f'/api/tickets/{ticket["id"]}/review', json={'decision': 'accepted'})
+        result = client.post(f'/api/tickets/{ticket["id"]}/review', json={'decision': 'accepted', 'reason': 'Checked after restart.'})
         assert result.status_code == 200, result.text
         assert result.json()['reviewed_at'] is not None
+        assert result.json()['workflow_mode'] == workflow_mode
+        assert result.json()['review_pending'] is False
+        event = next(e for e in result.json()['events'] if e['event_type'] == 'review_completed')
+        assert event['payload']['reason'] == 'Checked after restart.'
     engine.dispose()
 
 

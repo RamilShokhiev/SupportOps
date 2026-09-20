@@ -1,0 +1,66 @@
+.analysis-mode-control{display:flex;align-items:center;gap:18px;margin:0 0 18px;padding:15px 19px;background:#fff;border:1px solid #e8ecf1;border-radius:9px}
+.analysis-mode-control label{flex-shrink:0;color:#526579;font-size:11px;font-weight:600;gap:7px}
+.analysis-mode-control select{min-width:180px;font-size:12px;color:#34485d}
+.analysis-mode-control p{font-size:11px;line-height:1.7;color:#687b90;margin:0;max-width:660px}
+.analysis-mode-control .mode-lock{display:block;color:#64758b;font-size:11px;font-weight:600;margin-bottom:4px}
+.team-busy{display:flex;align-items:center;gap:10px;padding:14px 19px;margin-bottom:18px;border:1px solid #e8dcce;background:#fffaf5;border-radius:8px;color:#725944;font-size:12px}
+.draft-review-feedback{padding:0 22px 18px}
+.draft-review-feedback label{font-size:11px;color:#587085;gap:8px}
+.draft-review-feedback textarea{font-size:11px;line-height:1.8}
+.draft-review-feedback small{display:block;color:#76899b;font-size:10px;margin-top:8px;line-height:1.7}
+.review-team-panel{overflow:hidden}
+.review-team-panel .section-header{gap:12px;flex-wrap:wrap}
+.team-outcome{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;border-radius:20px;padding:5px 8px;white-space:nowrap}
+.team-outcome.passed{background:#eaf4ee;color:#3f7154}
+.team-outcome.needs_review{background:#fff3de;color:#806022}
+.team-introduction{padding:16px 22px;border-bottom:1px solid #edf0f4;background:#fafbfc}
+.team-introduction>p{color:#485d72;font-size:11px;line-height:1.8;font-weight:550;margin:0}
+.team-summary{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:9px;color:#718297;font-size:10px}
+.team-role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:20px}
+.team-role{display:flex;flex-direction:column;min-width:0;border:1px solid #e5eaf0;border-radius:8px;padding:14px;background:#fff}
+.team-role.blocked,.team-role.error{border-color:#ebd4af;background:#fffcf7}
+.team-role-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.team-role-heading h3{font-size:12px;font-weight:600;color:#40566c;line-height:1.5;margin:0}
+.team-role-status{display:inline-flex;align-items:center;gap:3px;font-size:9px;color:#4d775b;white-space:nowrap;padding-top:2px}
+.team-role.blocked .team-role-status,.team-role.error .team-role-status{color:#95652c}
+.team-provider{font-size:9px;color:#728397;margin-top:5px}
+.team-role>p{font-size:11px;line-height:1.8;color:#536b80;margin:11px 0}
+.team-role ul,.team-draft-history ul{font-size:10px;line-height:1.8;color:#61758a;margin:0 0 12px;padding-left:17px;overflow-wrap:anywhere}
+.team-sources{display:flex;flex-direction:column;gap:7px;margin:0 0 12px}
+.team-sources .text-button{font-size:10px;line-height:1.5;text-align:left;justify-content:flex-start}
+.team-sources svg{flex-shrink:0}
+.team-role-details{margin-top:auto;border-top:1px solid #e9edf1;font-size:9px;color:#76879a}
+.team-role-details summary{display:flex;align-items:center;justify-content:space-between;padding-top:10px;cursor:pointer;list-style:none}
+.team-role-details>div{display:flex;flex-wrap:wrap;gap:7px 12px;padding-top:9px}
+.team-concerns{margin:0 20px 18px;padding:14px 16px;background:#fff8ec;border:1px solid #efdfc3;border-radius:8px}
+.team-concerns h3,.team-verdict h3,.team-overview-details h3{font-size:12px;color:#4e6277;margin:0 0 8px;font-weight:600}
+.team-concerns ul{list-style:none;padding:0;margin:0}
+.team-concerns li{display:flex;gap:8px;margin-top:12px;color:#986b32}
+.team-concerns li>svg{flex-shrink:0;margin-top:1px}
+.team-concerns strong{font-size:10px;font-weight:600}
+.team-concerns p{font-size:11px;color:#755d40;line-height:1.8;margin:3px 0 0}
+.team-verdict{display:flex;gap:11px;padding:17px 22px;border-top:1px solid #e8edf2;background:#f8fafb}
+.team-verdict>svg{flex-shrink:0;color:#5f7c6c;margin-top:1px}
+.team-verdict p{font-size:11px;line-height:1.8;color:#4f667b;margin:0 0 7px}
+.team-verdict small{font-size:10px;color:#6b7d91;line-height:1.7}
+.team-draft-history{border-top:1px solid #e8edf2;padding:0 22px}
+.team-draft-history>summary{display:flex;align-items:center;justify-content:space-between;list-style:none;font-size:11px;color:#5d748a;padding:16px 0;cursor:pointer}
+.team-draft-history article{padding:0 0 15px}
+.team-draft-history h3{font-size:11px;color:#50657a;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
+.team-draft-history h3 span{font-size:9px;font-weight:400;color:#71869a}
+.team-draft-history article>p{font-size:11px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;padding:13px 15px;border-radius:6px;border:1px solid #e8edf2;color:#566d81;background:#fafbfc;margin:0}
+.team-overview{margin-bottom:23px}
+.team-overview-note{margin:16px 23px 0;font-size:11px;line-height:1.8;color:#687b90}
+.human-review-note{margin:9px 0;font-size:11px;line-height:1.8;color:#536b80;white-space:pre-wrap;overflow-wrap:anywhere}
+.team-overview-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:20px 23px}
+.team-overview-metrics>div{display:flex;flex-direction:column;gap:8px}
+.team-overview-metrics strong{font-size:25px;color:#4c657a;font-family:'Manrope',sans-serif}
+.team-overview-metrics span{font-size:10px;color:#6b7e92}
+.team-overview-details{display:grid;grid-template-columns:1fr 1fr;gap:23px;padding:0 23px 20px}
+.team-overview-details>div{border-top:1px solid #e8edf2;padding-top:15px}
+.team-overview-details ul{list-style:none;padding:0;margin:0;color:#687f94;font-size:10px}
+.team-overview-details li{display:flex;justify-content:space-between;gap:15px;margin-top:9px}
+.team-overview-details p{font-size:10px;color:#71869a;line-height:1.8;margin:0}
+@media(max-width:1250px){.team-role-grid{grid-template-columns:1fr}.team-role-heading h3{font-size:12px}}
+@media(max-width:1020px){.team-role-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.analysis-mode-control{align-items:stretch;flex-direction:column;gap:10px;padding:14px 17px}.analysis-mode-control label{width:100%}.analysis-mode-control select{width:100%}.team-role-grid{grid-template-columns:1fr;padding:16px;gap:11px}.team-introduction{padding:15px 17px}.team-summary{gap:7px 13px}.team-verdict{padding:16px 17px}.team-concerns{margin:0 16px 16px}.team-draft-history{padding:0 17px}.team-outcome{font-size:9px}.team-overview-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:18px}.team-overview-details{gap:18px;padding:0 18px 18px}.team-overview-details h3{font-size:11px}.team-busy{font-size:11px;line-height:1.7;align-items:flex-start}.team-busy>svg{flex-shrink:0;margin-top:2px}}

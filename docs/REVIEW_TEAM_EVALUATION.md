@@ -1,0 +1,26 @@
+# Review-team development comparison
+
+Generated: 2026-09-19T20:33:26.405647+00:00. Actual run on 30 synthetic English development tickets from 10 scenario groups. Providers: deterministic demo rules, templates and hash embeddings.
+
+Both variants run the complete LangGraph path through the human-review interrupt, including the real diagnostic adapter with an in-memory HTTP transport and separate in-memory checkpoints. The comparison performs no human decision, issue creation, live model request or external network call. The frozen held-out test file is neither loaded nor modified.
+
+| Workflow | Completed | Next-step matches | Category matches | p50 ms | p95 ms | Runtime errors |
+|---|---:|---:|---:|---:|---:|---:|
+| standard | 30/30 | 24/30 | 30/30 | 10.9962 | 16.147 | 0 |
+| multi_agent_review | 30/30 | 24/30 | 30/30 | 16.5575 | 19.8976 | 0 |
+
+Route agreement: 30/30 completed pairs. Changed routes: 0. Team review disagreements: 3; draft revisions: 0.
+
+These numbers do not demonstrate live-model improvement. They measure a small, correlated development regression sample using the existing routing policy. Additional review roles and recorded disagreements improve inspectability; they are not proof of better support answers. A fresh held-out set and authorized live comparison are required for a quality claim.
+
+Timings include graph execution, mock HTTP diagnostics and in-memory checkpoint work, excluding graph construction, document indexing, database/API/UI overhead, human review and external actions. Variant order alternates per ticket. Values come from one local run and are not production latency or statistically significant performance measurements. Demo external model cost is zero; local compute and infrastructure costs are not measured.
+
+Reproduce from the repository:
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\evaluate_review_team.py
+```
+
+Python: `3.13.15`. Development SHA-256: `eca3c24bcc2d664e5e80c0a31e6499049920db3e037140ebb5175fc5ebfbf7ee`.
+
+Per-ticket results and exact code hashes for this run: [dev_review_team.json](../data/evaluation/dev_review_team.json). The existing baseline reports and predictions are preserved.

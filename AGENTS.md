@@ -23,13 +23,14 @@ You are implementing the **remaining MVP gaps** in this repository (`e:\Projects
 | RAG md/pdf, versions, hybrid search, org+version filter, citations | Done; no reranker (correct until a measured baseline) |
 | RetailBridge demo API + timeout/error | Done (`retailbridge/`, `integrations.py`) |
 | LangGraph answer/clarify/escalate + durable resume | Done (`workflow.py`, `/resume`) |
+| Optional multi-agent review | Done (`review_team.py`, migration `0003`); six roles, one revision, persisted reports and feedback; see `docs/REVIEW_TEAM.md` |
 | Action card, versioned approval, GitHub adapter, reconcile | Done (`services.py`) |
 | EN/RU/TR eval + optional EN Triage compare | Done: actual demo and EN Triage reports/artifacts; live LLM not evaluated |
 | Auth, roles, two orgs | Done (`seed.py`) |
 | Dashboard + CSV from code | Done |
 | Tracing / Langfuse | Partial: opt-in scalars in `observability.py` |
 | Docker Compose, CI, README, `.env.example`, pinned deps | Done locally; CI workflow awaits a remote GitHub run |
-| Scenario tests (isolation, unapproved execute, replay, crash) | Done: API scenarios, migrations/Postgres and four Chromium E2E tests |
+| Scenario tests (isolation, unapproved execute, replay, crash) | Done: API and mocked-provider scenarios, migrations/Postgres and six Chromium E2E tests |
 
 ## Layout
 
@@ -44,6 +45,7 @@ SupportOps/
 │   ├── models.py          Schema
 │   ├── services.py        Analyze / approve / execute / reconcile
 │   ├── workflow.py        diagnostics → analysis → human_review interrupt
+│   ├── review_team.py     optional six-role graph → one revision → human_review interrupt
 │   ├── intelligence.py    extract, retrieve, next_step, draft (demo|openai)
 │   ├── retrieval.py       applicability + lexical/cosine RRF
 │   ├── integrations.py    RetailBridge GET + issue create
@@ -83,6 +85,8 @@ resolve only after human review on ready|escalated
 
 Approval binds `version` + `content_hash`. Edit bumps version. SLA `due_at` is first human review (P1 1h / P2 4h / P3 8h UTC). Incident + ≥3 stores → P1.
 
+`WorkflowRun.workflow_mode` selects `standard` (default) or `multi_agent_review`. Resume, human review and clarification use the saved mode. Existing rows migrate to standard. Team roles never bypass server routing or human approval; max one revision/five generation attempts per uninterrupted run. Feedback is recorded, not automatic training. Development comparison: `scripts/evaluate_review_team.py`; preserve existing held-out outputs.
+
 ## Intelligence invariants
 
 The model has **no tools**. `next_step` is `_next_step()` on the server:
@@ -108,6 +112,7 @@ Corpus traps: E-214 3.7 vs 3.8 differ; `data-export` is Northstar-only; SupportO
 | API / auth | `main.py`, `schemas.py` |
 | Execute / GitHub | `services.py`, `integrations.py` |
 | Routing / drafts | `intelligence.py` |
+| Team review / bounds / feedback | `review_team.py`, `services.py`, `ReviewTeamPanel.tsx` |
 | RAG | `retrieval.py`, `worker.py` |
 | UI | `frontend/src/App.tsx` |
 | Corpus | `scripts/build_dataset.py` then regenerate hashes |

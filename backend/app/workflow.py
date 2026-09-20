@@ -20,7 +20,7 @@ class State(TypedDict, total=False):
 
 
 @contextmanager
-def persistent_graph(settings):
+def persistent_graph(settings, workflow_mode='standard'):
     if settings.database_url.startswith('postgresql'):
         from langgraph.checkpoint.postgres import PostgresSaver
         context = PostgresSaver.from_conn_string(settings.database_url.replace('postgresql+psycopg://', 'postgresql://'))
@@ -29,7 +29,13 @@ def persistent_graph(settings):
         context = SqliteSaver.from_conn_string(settings.checkpoint_sqlite_path)
     with context as checkpointer:
         checkpointer.setup()
-        yield build_graph(settings, checkpointer)
+        if workflow_mode == 'multi_agent_review':
+            from .review_team import build_review_graph
+            yield build_review_graph(settings, checkpointer)
+        elif workflow_mode == 'standard':
+            yield build_graph(settings, checkpointer)
+        else:
+            raise ValueError('Unsupported workflow mode')
 
 
 def build_graph(settings, checkpointer):

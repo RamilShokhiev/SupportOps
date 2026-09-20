@@ -39,6 +39,7 @@ def ticket_dict(db, ticket, detail=True):
     data.update({key: iso(getattr(ticket, key)) for key in ['created_at', 'due_at', 'reviewed_at', 'resolved_at']})
     run = latest_run(db, ticket)
     data['review_pending'] = bool(run and run.status == 'waiting')
+    data['workflow_mode'] = run.workflow_mode if run else None
     action = db.scalar(select(ProposedAction).where(ProposedAction.ticket_id == ticket.id, ProposedAction.organization_id == ticket.organization_id))
     data['action'] = None
     if action:
@@ -69,7 +70,16 @@ def latest_run(db, ticket):
 
 
 def graph_config(run):
-    return {'configurable': {'thread_id': f'{run.organization_id}:{run.id}'}, 'recursion_limit': 8}
+    return {'configurable': {'thread_id': f'{run.organization_id}:{run.id}'},
+            'recursion_limit': 20 if run.workflow_mode == 'multi_agent_review' else 8}
+
+
+def graph_for_run(app, run):
+    if run.workflow_mode == 'multi_agent_review':
+        return app.state.review_graph
+    if run.workflow_mode == 'standard':
+        return app.state.graph
+    raise ValueError('The saved workflow mode is unsupported')
 
 
 def workflow_input(db, ticket, settings):
@@ -84,18 +94,19 @@ def workflow_input(db, ticket, settings):
     return {'ticket_id': ticket.id, 'organization_id': ticket.organization_id, 'text': ticket.text, 'language': ticket.language, 'diagnostic_mode': ticket.diagnostic_mode, 'documents': [document_dict(d, True) for d in latest.values()]}
 
 
-def complete_review(db, ticket, user, graph, decision):
+def complete_review(db, ticket, user, app, decision, reason=''):
     run = latest_run(db, ticket)
     if run and run.status == 'waiting':
-        graph.invoke(Command(resume={'decision': decision, 'reviewer_id': user.id}), graph_config(run))
+        graph_for_run(app, run).invoke(Command(resume={'decision': decision, 'reviewer_id': user.id, 'reason': reason.strip()}), graph_config(run))
         run.status = 'completed'
         run.completed_at = utcnow()
     if ticket.reviewed_at is None:
         ticket.reviewed_at = utcnow()
-    audit(db, ticket, user, 'review_completed', {'decision': decision})
+    audit(db, ticket, user, 'review_completed', {'decision': decision, 'reason': reason.strip(),
+          'run_id': run.id if run else None, 'workflow_mode': run.workflow_mode if run else None})
 
 
-def analyze_ticket(db, ticket, user, app, resume=False):
+def analyze_ticket(db, ticket, user, app, resume=False, workflow_mode=None):
     existing_action = db.scalar(select(ProposedAction).where(ProposedAction.ticket_id == ticket.id))
     if existing_action:
         raise HTTPException(409, 'Review the existing proposal before requesting another analysis')
@@ -106,30 +117,35 @@ def analyze_ticket(db, ticket, user, app, resume=False):
         if ticket.status == 'analyzing' and (utcnow() - run.created_at.replace(tzinfo=utcnow().tzinfo)).total_seconds() < 120:
             raise HTTPException(409, 'Workflow is still running; retry recovery after two minutes')
     else:
+        selected_mode = workflow_mode or (run.workflow_mode if run else app.state.settings.default_workflow_mode)
+        if selected_mode not in {'standard', 'multi_agent_review'}:
+            raise HTTPException(422, 'Unsupported workflow mode')
         claimed = db.execute(update(Ticket).where(Ticket.id == ticket.id, Ticket.organization_id == user.organization_id, Ticket.status.in_(['new', 'failed'])).values(status='analyzing'))
         if claimed.rowcount != 1:
             raise HTTPException(409, 'Ticket is already analyzed or being processed')
-        run = WorkflowRun(ticket_id=ticket.id, organization_id=user.organization_id)
+        run = WorkflowRun(ticket_id=ticket.id, organization_id=user.organization_id, workflow_mode=selected_mode)
         db.add(run)
     ticket.status = 'analyzing'
     run.status = 'running'
     db.flush()
-    audit(db, ticket, user, 'analysis_started', {'run_id': run.id, 'resumed': resume})
+    audit(db, ticket, user, 'analysis_started', {'run_id': run.id, 'resumed': resume, 'workflow_mode': run.workflow_mode})
     db.commit()
     started = time.perf_counter()
     try:
+        graph = graph_for_run(app, run)
         if resume:
-            state = app.state.graph.get_state(graph_config(run))
+            state = graph.get_state(graph_config(run))
             if state.created_at is None:
                 # The durable run claim can survive a crash before LangGraph saves its input.
-                result = app.state.graph.invoke(workflow_input(db, ticket, app.state.settings), graph_config(run))
+                result = graph.invoke(workflow_input(db, ticket, app.state.settings), graph_config(run))
             elif state.values.get('analysis') and state.interrupts:
                 result = state.values
             else:
-                result = app.state.graph.invoke(None, graph_config(run))
+                result = graph.invoke(None, graph_config(run))
         else:
-            result = app.state.graph.invoke(workflow_input(db, ticket, app.state.settings), graph_config(run))
+            result = graph.invoke(workflow_input(db, ticket, app.state.settings), graph_config(run))
         analysis = dict(result['analysis'])
+        analysis['workflow_mode'] = run.workflow_mode
         analysis['elapsed_ms'] = round((time.perf_counter() - started) * 1000, 2)
         db.refresh(ticket)
         ticket.analysis = analysis
@@ -154,7 +170,14 @@ def analyze_ticket(db, ticket, user, app, resume=False):
             body = f"## Synthetic support case\n\n{ticket.text}\n\n## Confirmed observations\n{facts}\n\n## Sources\n{sources}\n\n## Draft response\n{analysis['draft']}\n\n## Hypothesis (unconfirmed)\n{analysis.get('hypothesis') or 'No causal hypothesis established.'}\n\nEscalation does not imply problem resolution."
             action = ProposedAction(ticket_id=ticket.id, organization_id=user.organization_id, title=title, body=body, repository=repository, content_hash=action_hash(title, body, repository))
             db.add(action)
-        audit(db, ticket, user, 'analysis_completed', {'run_id': run.id, 'elapsed_ms': analysis['elapsed_ms'], 'next_step': step, 'cost_usd': analysis.get('cost_usd'), 'model': analysis.get('model'), 'input_tokens': analysis.get('input_tokens', 0), 'output_tokens': analysis.get('output_tokens', 0), 'api_errors': sum(d.get('status') != 'ok' for d in analysis.get('diagnostics', []))})
+        team = analysis.get('review_team')
+        team_summary = None if not team else {
+            'status': team['status'], 'revisions': team['revisions'],
+            'disagreements': len(team['disagreements']),
+            'by_role': {role: sum(finding['role'] == role for finding in team['disagreements'])
+                        for role in {finding['role'] for finding in team['disagreements']}},
+        }
+        audit(db, ticket, user, 'analysis_completed', {'run_id': run.id, 'workflow_mode': run.workflow_mode, 'review_team': team_summary, 'elapsed_ms': analysis['elapsed_ms'], 'next_step': step, 'cost_usd': analysis.get('cost_usd'), 'model': analysis.get('model'), 'input_tokens': analysis.get('input_tokens', 0), 'output_tokens': analysis.get('output_tokens', 0), 'api_errors': sum(d.get('status') != 'ok' for d in analysis.get('diagnostics', []))})
         db.commit()
     except Exception as exc:
         db.rollback()

@@ -55,6 +55,12 @@ Unknown product/version fields stay empty. Category, unconfirmed hypothesis and 
 
 Proposals are editable before execution, and edits invalidate approval. The operation claim is committed before the outbound POST. A lost response produces a review/reconciliation path, never an automatic second create. GitHub reconciliation scans up to 500 recent issues for the operation marker; a missing result remains unresolved. This is bounded recovery, not a guarantee of external exactly-once delivery.
 
+## Optional review team
+
+Choose **Review team** before analyzing a new ticket to enable six cooperating roles: triage, knowledge, diagnostics, response, safety review and coordinator. The response can be revised once from concrete reviewer findings. Results show role reports, sources, concerns and draft history. Human review remains required; optional staff comments are saved with decisions and the dashboard summarizes team activity.
+
+The default remains **Fast analysis** (`standard`). In demo mode, the roles use deterministic rules, retrieval and template checks. With the existing OpenAI adapter configured, extraction, drafting and independent review use separate structured calls to the configured model. This is bounded support review, with no automatic training or permission changes. [Design, API and limits](docs/REVIEW_TEAM.md); [actual 30-ticket development comparison](docs/REVIEW_TEAM_EVALUATION.md).
+
 ## Develop without containers for the application
 
 Use Python 3.13 and Node.js 22. The direct dependencies and their transitive constraints are in `backend/requirements.txt`, `backend/requirements-dev.txt` and `backend/requirements.lock`; npm uses `frontend/package-lock.json`.
@@ -97,7 +103,7 @@ For an explicit SQLite fallback, set `DATABASE_URL=sqlite:///./supportops.db` in
 .\.venv\Scripts\python.exe -m alembic upgrade head
 ```
 
-Review generated revisions before applying them. Alembic owns application tables; LangGraph's checkpointer owns its checkpoint migrations. Bootstrap does not drop tables or automatically stamp an unversioned legacy database. Back up an older database created with `create_all`, compare its schema with revision `0001`, and only stamp `0001` after confirming equivalence; then upgrade to head. Revision `0002` widens the synthetic issue marker to store its UUID and full content hash on PostgreSQL. Do not run a destructive downgrade on data you want to keep.
+Review generated revisions before applying them. Alembic owns application tables; LangGraph's checkpointer owns its checkpoint migrations. Bootstrap does not drop tables or automatically stamp an unversioned legacy database. Back up an older database created with `create_all`, compare its schema with revision `0001`, and only stamp `0001` after confirming equivalence; then upgrade to head. Revision `0002` widens the synthetic issue marker to store its UUID and full content hash on PostgreSQL. Revision `0003` stores each run's workflow mode and preserves existing runs as standard. Do not run a destructive downgrade on data you want to keep.
 
 ## Configuration and optional adapters
 
@@ -105,6 +111,7 @@ The default `MODE`, `LLM_PROVIDER`, `EMBEDDING_PROVIDER` and `ISSUE_PROVIDER` ar
 
 | Setting | Purpose |
 |---|---|
+| `DEFAULT_WORKFLOW_MODE=standard` | First-run default; `multi_agent_review` enables the optional review team; the UI can override per ticket |
 | `LLM_PROVIDER=openai`, `OPENAI_API_KEY`, `OPENAI_MODEL` | Enable the existing real structured-output adapter |
 | `EMBEDDING_PROVIDER=openai`, `EMBEDDING_MODEL` | Real embeddings; keep `EMBEDDING_DIMENSIONS=256` for this schema |
 | `INPUT_COST_PER_MILLION`, `OUTPUT_COST_PER_MILLION`, `EMBEDDING_COST_PER_MILLION` | Explicit prices for cost estimates; unset live prices mean unknown cost |
@@ -124,7 +131,9 @@ Read-only diagnostic calls retry at most twice; graph recursion is capped. These
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe scripts/evaluate.py --split test
+.\.venv\Scripts\python.exe scripts/evaluate_review_team.py  # Separate development comparison; preserves held-out artifacts.
 .\.venv\Scripts\python.exe scripts/smoke.py  # Requires the running all-demo stack; creates one synthetic ticket/issue.
+.\.venv\Scripts\python.exe scripts/smoke.py --workflow-mode multi_agent_review
 cd frontend
 npm ci
 npm run typecheck

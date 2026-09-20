@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base-url', default='http://127.0.0.1:8000')
     parser.add_argument('--password', default='demo-supportops')
+    parser.add_argument('--workflow-mode', choices=['standard', 'multi_agent_review'], default='standard')
     args = parser.parse_args()
     with httpx.Client(base_url=args.base_url, timeout=30, follow_redirects=False) as client:
         health = check(client.get('/api/health'))
@@ -29,7 +30,12 @@ def main():
             'language': 'en',
         }), 201)
         ticket_path = f'/api/tickets/{ticket["id"]}'
-        analyzed = check(client.post(ticket_path + '/analyze'))
+        analyzed = check(client.post(ticket_path + '/analyze', json={'workflow_mode': args.workflow_mode}))
+        assert analyzed['workflow_mode'] == args.workflow_mode
+        if args.workflow_mode == 'multi_agent_review':
+            team = analyzed['analysis']['review_team']
+            assert len(team['roles']) == 6 and team['human_review_required']
+            assert team['provider'] == 'demo' and team['llm_calls'] == 0
         assert analyzed['status'] == 'awaiting_approval'
         assert analyzed['analysis']['sources']
         assert all(item['status'] == 'ok' for item in analyzed['analysis']['diagnostics'])
@@ -37,7 +43,8 @@ def main():
         action_path = f'/api/actions/{action["id"]}'
         version = {'version': action['version']}
         check(client.post(action_path + '/execute', json=version), 409)
-        check(client.post(action_path + '/approve', json=version))
+        approved = check(client.post(action_path + '/approve', json={**version, 'reason': 'Synthetic smoke: checked sources and diagnostic evidence.'}))
+        assert any(e['event_type'] == 'review_completed' and e['payload']['reason'].startswith('Synthetic smoke:') for e in approved['events'])
         executed = check(client.post(action_path + '/execute', json=version))
         repeated = check(client.post(action_path + '/execute', json=version))
         assert executed['status'] == 'escalated'
@@ -53,7 +60,7 @@ def main():
         check(client.post('/api/auth/login', json={'email': 'support@contoso.demo', 'password': args.password}))
         check(client.get(ticket_path), 404)
         check(client.get(executed['action']['execution']['url']), 404)
-        print(f'Synthetic {health["database"]} smoke passed: diagnostic HTTP, cited proposal, approval, one issue, CSV and tenant isolation.')
+        print(f'Synthetic {health["database"]} {args.workflow_mode} smoke passed: diagnostic HTTP, cited proposal, approval with feedback, one issue, CSV and tenant isolation.')
 
 
 if __name__ == '__main__':

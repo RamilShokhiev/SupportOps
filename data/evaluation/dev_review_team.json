@@ -1,0 +1,1413 @@
+{
+  "generated_at": "2026-09-19T20:33:26.405647+00:00",
+  "python": "3.13.15",
+  "mode": "demo",
+  "split": "dev",
+  "language": "en",
+  "n": 30,
+  "scenario_groups": 10,
+  "development_sha256": "eca3c24bcc2d664e5e80c0a31e6499049920db3e037140ebb5175fc5ebfbf7ee",
+  "metrics": {
+    "standard": {
+      "completed": 30,
+      "runtime_errors": 0,
+      "next_step_matches": 24,
+      "category_matches": 30,
+      "latency_ms": {
+        "p50": 10.9962,
+        "p95": 16.147
+      }
+    },
+    "multi_agent_review": {
+      "completed": 30,
+      "runtime_errors": 0,
+      "next_step_matches": 24,
+      "category_matches": 30,
+      "latency_ms": {
+        "p50": 16.5575,
+        "p95": 19.8976
+      }
+    }
+  },
+  "paired_completed": 30,
+  "route_agreement": 30,
+  "changed_routes": 0,
+  "team_disagreements": 3,
+  "team_revisions": 0,
+  "disagreement_codes": {
+    "conflicting_evidence": 3
+  },
+  "code_sha256": {
+    "backend/app/review_team.py": "bf4ae03a05214bef1eab14daa3192e85fe96a3ccb8efe8eec1b40cb7788eae13",
+    "backend/app/workflow.py": "a6573cdc5b3ec366f680503bf591eb9873ace49b35271ae30fb07619aa290354",
+    "backend/app/intelligence.py": "31d00082a76a8a17002df0a0b5d5cea2d0a19bc98b462635341f9f07c164e789",
+    "backend/app/retrieval.py": "ff436a5ad6fe7ea8509bc64ca7c1125d09f1f4cb97a0733306e10e40fbfddf6f",
+    "scripts/evaluate_review_team.py": "0550ea35f8e4eae8192fc13de3b94949f41486ba976d8bb0d8164f00d41f1274"
+  },
+  "records": [
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-1",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 22.1729,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-1",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 17.754,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-2",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 16.6186,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-2",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 9.9062,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-3",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 9.0386,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-three-store-upgrade-3",
+      "group_id": "dev:initial-three-store-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "escalate",
+      "category": "Incident",
+      "next_step": "escalate",
+      "source_keys": [
+        "checkout-e214-v38"
+      ],
+      "elapsed_ms": 15.2079,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-1",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 13.6966,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-1",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 9.0243,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-2",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 9.6183,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-2",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 16.349,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-3",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 14.4939,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-legacy-single-cache-3",
+      "group_id": "dev:legacy-single-cache",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "checkout-e214-v37"
+      ],
+      "elapsed_ms": 11.0498,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-1",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 11.5885,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-1",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 14.5631,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-2",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 14.9292,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-2",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 10.6645,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-3",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 9.8493,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-first-sku-conflict-3",
+      "group_id": "dev:first-sku-conflict",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 16.6318,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-1",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 16.4965,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-1",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 10.9426,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-2",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 9.8545,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-2",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 14.8802,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-3",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 14.7104,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-scheduled-token-expiry-3",
+      "group_id": "dev:scheduled-token-expiry",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "connector-e401"
+      ],
+      "elapsed_ms": 13.8148,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-1",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 12.9701,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-1",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 19.9263,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-2",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 19.3195,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-2",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 9.7723,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-3",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 8.557,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-paused-first-receipt-3",
+      "group_id": "dev:paused-first-receipt",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "receipt-p102"
+      ],
+      "elapsed_ms": 14.0658,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-1",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 15.7351,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-1",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 8.6937,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-2",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 7.7554,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-2",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 14.0202,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-3",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 17.0113,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-initial-report-capacity-3",
+      "group_id": "dev:initial-report-capacity",
+      "workflow_mode": "standard",
+      "expected_category": "Incident",
+      "expected_next_step": "answer",
+      "category": "Incident",
+      "next_step": "answer",
+      "source_keys": [
+        "reporting-r503"
+      ],
+      "elapsed_ms": 8.8216,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-1",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "inventory-e409",
+        "data-export",
+        "checkout-e214-v38",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 12.4838,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-1",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "inventory-e409",
+        "data-export",
+        "checkout-e214-v38",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 17.1287,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-2",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "data-export",
+        "checkout-e214-v38",
+        "inventory-e409",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 19.8625,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-2",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "data-export",
+        "checkout-e214-v38",
+        "inventory-e409",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 12.4528,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-3",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "receipt-p102",
+        "checkout-e214-v38",
+        "inventory-e409",
+        "connector-e401"
+      ],
+      "elapsed_ms": 15.1352,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-cashier-onboarding-3",
+      "group_id": "dev:cashier-onboarding",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "access-roles",
+        "receipt-p102",
+        "checkout-e214-v38",
+        "inventory-e409",
+        "connector-e401"
+      ],
+      "elapsed_ms": 18.2394,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-1",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "access-roles"
+      ],
+      "elapsed_ms": 17.594,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-1",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "access-roles"
+      ],
+      "elapsed_ms": 11.3532,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-2",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "connector-e401",
+        "access-roles",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 12.2044,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-2",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "connector-e401",
+        "access-roles",
+        "receipt-p102"
+      ],
+      "elapsed_ms": 16.4572,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-3",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "connector-e401"
+      ],
+      "elapsed_ms": 20.0594,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-northstar-yesterday-export-3",
+      "group_id": "dev:northstar-yesterday-export",
+      "workflow_mode": "standard",
+      "expected_category": "Request",
+      "expected_next_step": "answer",
+      "category": "Request",
+      "next_step": "escalate",
+      "source_keys": [
+        "data-export",
+        "connector-e401"
+      ],
+      "elapsed_ms": 12.7371,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-1",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "standard",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 9.3931,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-1",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 15.1476,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-2",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 17.3808,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-2",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "standard",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 11.9338,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-3",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "standard",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 8.6068,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-recurring-noon-stock-3",
+      "group_id": "dev:recurring-noon-stock",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Problem",
+      "expected_next_step": "escalate",
+      "category": "Problem",
+      "next_step": "escalate",
+      "source_keys": [
+        "inventory-e409"
+      ],
+      "elapsed_ms": 14.3536,
+      "runtime_error": null,
+      "review_status": "passed",
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-1",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "elapsed_ms": 19.6908,
+      "runtime_error": null,
+      "review_status": "needs_review",
+      "revisions": 0,
+      "disagreements": [
+        {
+          "role": "knowledge",
+          "code": "conflicting_evidence",
+          "message": "Applicable instructions conflict; a specialist must reconcile them.",
+          "blocking": true
+        }
+      ],
+      "warnings": [
+        "Applicable instructions conflict; a specialist must reconcile them before action.",
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-1",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "elapsed_ms": 11.7943,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them before action."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-2",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b",
+        "access-roles",
+        "data-export"
+      ],
+      "elapsed_ms": 11.7376,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them before action."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-2",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b",
+        "access-roles",
+        "data-export"
+      ],
+      "elapsed_ms": 18.2191,
+      "runtime_error": null,
+      "review_status": "needs_review",
+      "revisions": 0,
+      "disagreements": [
+        {
+          "role": "knowledge",
+          "code": "conflicting_evidence",
+          "message": "Applicable instructions conflict; a specialist must reconcile them.",
+          "blocking": true
+        }
+      ],
+      "warnings": [
+        "Applicable instructions conflict; a specialist must reconcile them before action.",
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-3",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "multi_agent_review",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "elapsed_ms": 16.7639,
+      "runtime_error": null,
+      "review_status": "needs_review",
+      "revisions": 0,
+      "disagreements": [
+        {
+          "role": "knowledge",
+          "code": "conflicting_evidence",
+          "message": "Applicable instructions conflict; a specialist must reconcile them.",
+          "blocking": true
+        }
+      ],
+      "warnings": [
+        "Applicable instructions conflict; a specialist must reconcile them before action.",
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them.",
+        "Review Team demo uses deterministic roles and mechanical template checks; no independent language-model judgment was performed."
+      ],
+      "human_review_interrupt": true
+    },
+    {
+      "ticket_id": "dev-planned-lab-upgrade-3",
+      "group_id": "dev:planned-lab-upgrade",
+      "workflow_mode": "standard",
+      "expected_category": "Change",
+      "expected_next_step": "clarify",
+      "category": "Change",
+      "next_step": "clarify",
+      "source_keys": [
+        "upgrade-v39-a",
+        "upgrade-v39-b"
+      ],
+      "elapsed_ms": 16.9748,
+      "runtime_error": null,
+      "review_status": null,
+      "revisions": 0,
+      "disagreements": [],
+      "warnings": [
+        "Demo mode: deterministic EN/RU/TR rules and templates; no language model was called.",
+        "Applicable instructions conflict; a specialist must reconcile them before action."
+      ],
+      "human_review_interrupt": true
+    }
+  ]
+}

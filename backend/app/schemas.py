@@ -34,12 +34,21 @@ class Clarification(Input):
     text: str = Field(min_length=5, max_length=4000)
 
 
+class AnalyzeRequest(Input):
+    workflow_mode: Literal['standard', 'multi_agent_review'] | None = None
+
+
 class Review(Input):
     decision: Literal['accepted', 'rejected']
+    reason: str = Field(default='', max_length=1000)
 
 
 class ActionVersion(Input):
     version: int = Field(ge=1)
+
+
+class ActionDecision(ActionVersion):
+    reason: str = Field(default='', max_length=1000)
 
 
 class ActionEdit(ActionVersion):

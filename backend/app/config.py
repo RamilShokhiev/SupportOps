@@ -12,6 +12,7 @@ PROJECT_ROOT = ROOT
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=str(PROJECT_ROOT / '.env'), extra='ignore')
     mode: Literal['demo', 'live'] = 'demo'
+    default_workflow_mode: Literal['standard', 'multi_agent_review'] = 'standard'
     database_url: str = 'postgresql+psycopg://supportops:supportops-local@127.0.0.1:5432/supportops'
     postgres_host: str | None = None
     postgres_port: int = 5432

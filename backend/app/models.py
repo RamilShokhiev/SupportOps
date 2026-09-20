@@ -87,6 +87,7 @@ class WorkflowRun(Base):
     organization_id: Mapped[str] = mapped_column(ForeignKey('organizations.id'), index=True)
     ticket_id: Mapped[str] = mapped_column(ForeignKey('tickets.id'), index=True)
     status: Mapped[str] = mapped_column(String(30), default='running')
+    workflow_mode: Mapped[str] = mapped_column(String(32), default='standard', server_default='standard')
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
