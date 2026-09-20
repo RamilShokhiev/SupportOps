@@ -36,6 +36,7 @@ Restore `DEMO_ISSUE_MODE=normal` and recreate the API afterward. These are local
 
 - Sign in as `viewer@northstar.demo` to show read-only controls. Use `support@contoso.demo` to show a different queue and knowledge scope.
 - Upload a small Markdown runbook as the Northstar administrator. Wait for the worker to mark the new revision ready.
+- Create another 3.8 E-214 ticket, choose **Review team**, analyze, and show the six role reports. Human approval is still required before execute. Do not present demo-rules team output as a live multi-model result.
 - Show `docs/EVALUATION.md` with separate EN/RU/TR scores and the retained errors. Do not call demo-rules scores LLM scores.
 
 This file is a recording script. A narrated video has not been recorded.

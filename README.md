@@ -1,8 +1,8 @@
 # SupportOps AI
 
-A local portfolio application for support teams working with **RetailBridge, a fictional retail product**. Every included ticket, runbook, diagnostic response and demo issue is synthetic.
+A local portfolio application for support teams working with **RetailBridge, a fictional retail product**. Every included ticket, runbook, diagnostic response and demo issue is synthetic. Source: [github.com/RamilShokhiev/SupportOps](https://github.com/RamilShokhiev/SupportOps).
 
-Create a ticket, inspect extracted fields and applicable sources, check the product's diagnostic API, then review an answer, clarification request or engineering proposal. The backend enforces roles and organization isolation. An external write requires approval of the exact proposal version and content hash. Escalation and problem resolution are separate events.
+Create a ticket, inspect extracted fields and applicable sources, check the product's diagnostic API, then review an answer, clarification request or engineering proposal. Optionally run **Review team** so six roles inspect the same evidence and may revise the draft once. The backend still enforces roles and organization isolation. An external write requires approval of the exact proposal version and content hash. Escalation and problem resolution are separate events.
 
 ## Start the local stack
 
@@ -40,7 +40,7 @@ The database password in `.env.example` is a local demo default. If changing `PO
 flowchart LR
     UI[React review workspace] --> API[FastAPI: session, role and tenant checks]
     API --> DB[(PostgreSQL + pgvector)]
-    API --> Graph[LangGraph: diagnostics, analysis, human interrupt]
+    API --> Graph[LangGraph: standard or review-team graph]
     Graph --> RB[RetailBridge synthetic read API]
     Graph --> Intelligence[Demo or OpenAI adapter: no tools]
     Graph --> Checkpoints[(Durable checkpoints)]
@@ -57,9 +57,26 @@ Proposals are editable before execution, and edits invalidate approval. The oper
 
 ## Optional review team
 
-Choose **Review team** before analyzing a new ticket to enable six cooperating roles: triage, knowledge, diagnostics, response, safety review and coordinator. The response can be revised once from concrete reviewer findings. Results show role reports, sources, concerns and draft history. Human review remains required; optional staff comments are saved with decisions and the dashboard summarizes team activity.
+**Fast analysis** (`standard`) remains the default. For a new ticket, open it, set **Analysis mode** to **Review team**, then **Analyze ticket**. The saved mode is reused for resume and clarification.
 
-The default remains **Fast analysis** (`standard`). In demo mode, the roles use deterministic rules, retrieval and template checks. With the existing OpenAI adapter configured, extraction, drafting and independent review use separate structured calls to the configured model. This is bounded support review, with no automatic training or permission changes. [Design, API and limits](docs/REVIEW_TEAM.md); [actual 30-ticket development comparison](docs/REVIEW_TEAM_EVALUATION.md).
+Six roles share structured evidence; none receive model tools or permission to write:
+
+| Role | What it does |
+|---|---|
+| Triage | Extract fields, category and an unconfirmed hypothesis |
+| Knowledge | Return applicable, version-filtered source excerpts |
+| Diagnostics | Read synthetic service status and recent changes |
+| Response | Draft, then optionally revise once from review findings |
+| Safety | Independent evidence review of the candidate |
+| Coordinator | Apply server routing; unresolved concerns become clarification |
+
+The graph still ends at a durable human interrupt. Staff can attach an optional comment to draft or action decisions. Dashboard and CSV include team-run counts, workflow mode and review outcome; those counts are activity, not accuracy scores. Feedback is stored; it does not retrain models or change permissions.
+
+Demo mode uses deterministic rules, retrieval and template checks (zero model API calls). With `LLM_PROVIDER=openai`, extraction, drafting and review use separate structured calls to the configured model. Limits: one revision, at most five generation attempts per uninterrupted run, recursion cap 20.
+
+On 30 synthetic English development tickets, both graphs completed 30/30, agreed on every route, and matched expected next-step labels 24/30. The team recorded three evidence concerns and zero revisions. That is inspectability on a small correlated sample, not a live-model quality gain. The frozen 150-ticket held-out set is unchanged.
+
+[Design, API and limits](docs/REVIEW_TEAM.md) · [Development comparison](docs/REVIEW_TEAM_EVALUATION.md)
 
 ## Develop without containers for the application
 
@@ -160,6 +177,8 @@ Actual synthetic held-out results (150 tickets, 50 per language; correlated tran
 
 - [Evaluation methods, per-language results and limits](docs/EVALUATION.md)
 - [Existing Triage code/model review and fresh comparison](docs/TRIAGE_REVIEW.md)
+- [Review team design, API and limits](docs/REVIEW_TEAM.md)
+- [Review team development comparison](docs/REVIEW_TEAM_EVALUATION.md)
 - [Three-minute demo walkthrough](docs/DEMO.md)
 - [Current completion status, checks and remaining limits](docs/PROGRESS.md)
 
